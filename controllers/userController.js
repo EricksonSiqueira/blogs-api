@@ -21,7 +21,7 @@ const post = async (req, res, _next) => {
   }
 };
 
-const getAll = async (req, res, _next) => {
+const getAll = async (_req, res, _next) => {
   try {
     const users = await User.findAll();
 
