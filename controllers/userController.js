@@ -1,6 +1,5 @@
 const { User } = require('../models');
 const generateToken = require('../utils/generateToken');
-require('dotenv').config();
 
 const post = async (req, res, _next) => {
   const { displayName, email, password, image } = req.body;
