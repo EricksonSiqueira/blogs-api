@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 
 const userRoute = require('./routes/user.routes');
+const categorieRoute = require('./routes/categorie.routes');
+
 const loginController = require('./controllers/loginController');
 const validation = require('./middlewares/loginValidations');
 
@@ -14,6 +16,8 @@ app.post('/login',
   validation.isEmailValid,
   validation.isPasswordValid,
   loginController.post);
+
+app.use('/categories', categorieRoute);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
