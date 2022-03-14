@@ -11,4 +11,8 @@ router.post('/',
   validator.isNameValid,
   categoriesController.post);
 
+router.get('/',
+  tokenValidator.isTokenValid,
+  categoriesController.getAll);
+
 module.exports = router;
