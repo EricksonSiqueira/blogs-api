@@ -1,5 +1,6 @@
 const { User } = require('../models');
 const { generateToken } = require('../utils/jwt');
+const createUserWithoutPassword = require('../utils/createUserWithoutPassword');
 
 const post = async (req, res, _next) => {
   const { displayName, email, password, image } = req.body;
@@ -24,7 +25,10 @@ const getAll = async (req, res, _next) => {
   try {
     const users = await User.findAll();
 
-    return res.status(200).json(users);
+    const usersWithoutPassword = users
+      .map((user) => createUserWithoutPassword(user));
+
+    return res.status(200).json(usersWithoutPassword);
   } catch (error) {
     console.log(error);
 
