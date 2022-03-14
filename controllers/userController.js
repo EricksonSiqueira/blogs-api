@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const generateToken = require('../utils/generateToken');
+const { generateToken } = require('../utils/jwt');
 
 const post = async (req, res, _next) => {
   const { displayName, email, password, image } = req.body;
@@ -20,6 +20,19 @@ const post = async (req, res, _next) => {
   }
 };
 
+const getAll = async (req, res, _next) => {
+  try {
+    const users = await User.findAll();
+
+    return res.status(200).json(users);
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({ message: 'Algo deu errado' });
+  }
+};
+
 module.exports = {
   post,
+  getAll,
 };
