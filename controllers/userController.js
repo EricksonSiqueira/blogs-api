@@ -36,7 +36,24 @@ const getAll = async (_req, res, _next) => {
   }
 };
 
+const getById = async (req, res, _next) => {
+  const { id } = req.params;
+
+  try {
+    const user = await User.findByPk(id);
+
+    if (!user) return res.status(404).json({ message: 'User does not exist' });
+
+    return res.status(200).json(createUserWithoutPassword(user));
+  } catch (error) {
+    console.log(error);
+
+    return res.status(400).json({ message: 'Algo deu errado' });
+  }
+};
+
 module.exports = {
   post,
   getAll,
+  getById,
 };
