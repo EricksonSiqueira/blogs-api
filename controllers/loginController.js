@@ -11,7 +11,7 @@ const post = async (req, res, _next) => {
       return res.status(400).json({ message: 'Invalid fields' });
     }
 
-    const token = generateToken(email, user.displayName);
+    const token = generateToken(user.displayName, email);
 
     return res.status(200).json({ token });
   } catch (err) {
