@@ -21,4 +21,12 @@ router.get('/:id',
   tokenValidator.isTokenValid,
   postController.getById);
 
+router.put('/:id',
+  tokenValidator.isTokenValid,
+  validator.isCategoryThere,
+  validator.isUserAuthorized,
+  validator.isTitleValid,
+  validator.isContentValid,
+  postController.update);
+
 module.exports = router;
