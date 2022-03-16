@@ -69,8 +69,29 @@ const getById = async (req, res, _next) => {
   }
 };
 
+const update = async (req, res, _next) => {
+  const { title, content } = req.body;
+  const { id } = req.params;
+
+  try {
+    await BlogPost.update({ title, content }, { where: { id } });
+
+    const { categories, userId } = await BlogPost.findOne({
+      where: { id },
+      include: { model: Category, as: 'categories', through: { attributes: [] } },
+    });
+
+    return res.status(200).json({ title, content, userId, categories });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({ message: 'Algo deu errado' });
+  }
+};
+
 module.exports = {
   post,
   getAll,
   getById,
+  update,
 };
