@@ -17,4 +17,8 @@ router.get('/',
   tokenValidator.isTokenValid,
   postController.getAll);
 
+router.get('/:id',
+  tokenValidator.isTokenValid,
+  postController.getById);
+
 module.exports = router;
