@@ -21,18 +21,18 @@ const isContentValid = (req, res, next) => {
   next();
 };
 
-const isCategoryIdsValid = (req, res, next) => {
+const isCategoryIdsValid = async (req, res, next) => {
   const { categoryIds } = req.body;
 
   if (!categoryIds) {
     return res.status(400).json({ message: '"categoryIds" is required' });
   }
-  categoryIds.forEach(async (categoryId) => {
-    const category = await Category.findByPk(categoryId);
-    if (!category) {
-      return res.status(400).json({ message: '"categoryIds" not found' });
-    }
-  });
+
+  const categories = await Category.findAll({ where: { id: categoryIds } });
+
+  if (categories.length !== categoryIds.length) {
+    return res.status(400).json({ message: '"categoryIds" not found' });
+  }
 
   next();
 };
