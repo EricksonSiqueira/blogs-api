@@ -13,4 +13,8 @@ router.post('/',
   validator.isTitleValid,
   postController.post);
 
+router.get('/',
+  tokenValidator.isTokenValid,
+  postController.getAll);
+
 module.exports = router;
