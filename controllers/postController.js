@@ -1,4 +1,4 @@
-const { BlogPost, User, PostCategorie } = require('../models');
+const { BlogPost, User, PostCategorie, Category } = require('../models');
 const jwtFuncs = require('../utils/jwt');
 
 const post = async (req, res, _next) => {
@@ -27,6 +27,26 @@ const post = async (req, res, _next) => {
   }
 };
 
+const getAll = async (req, res, _next) => {
+  try {
+    const posts = await BlogPost.findAll(
+      { 
+        include: [
+          { model: User, as: 'user' },
+          { model: Category, as: 'categories', through: { attributes: [] } },
+        ],
+      },
+      );
+
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({ message: 'Algo deu errado' });
+  }
+};
+
 module.exports = {
   post,
+  getAll,
 };
