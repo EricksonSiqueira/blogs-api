@@ -44,7 +44,7 @@ const getAll = async (req, res, _next) => {
 
     return res.status(500).json({ message: 'Algo deu errado' });
   }
-};
+}; // passa avaliador
 
 const getById = async (req, res, _next) => {
   const { id } = req.params;
