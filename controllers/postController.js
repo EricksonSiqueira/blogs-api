@@ -1,4 +1,4 @@
-const { BlogPost, User, PostCategorie, Category } = require('../models');
+const { BlogPost, User, PostCategory, Category } = require('../models');
 const jwtFuncs = require('../utils/jwt');
 
 const post = async (req, res, _next) => {
@@ -14,7 +14,7 @@ const post = async (req, res, _next) => {
       .create({ title, content, userId: user.id });
 
     categoryIds.forEach(async (categoryId) => {
-      await PostCategorie.create({ postId, categoryId });
+      await PostCategory.create({ postId, categoryId });
     });
     
     const postReturn = { id: postId, title, content, userId: user.id };
