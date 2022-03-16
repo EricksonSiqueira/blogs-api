@@ -10,19 +10,21 @@ const post = async (req, res, _next) => {
 
     const user = await User.findOne({ where: { email } });
 
-    const { null: postId } = await BlogPost
+    const { id } = await BlogPost
       .create({ title, content, userId: user.id });
-
-    categoryIds.forEach(async (categoryId) => {
-      await PostCategory.create({ postId, categoryId });
-    });
     
-    const postReturn = { id: postId, title, content, userId: user.id };
+    const categoriesToCreate = [];
+
+    categoryIds.forEach((categoryId) => {
+      categoriesToCreate.push({ postId: id, categoryId });
+    });
+
+    await PostCategory.bulkCreate(categoriesToCreate);
+    
+    const postReturn = { id, title, content, userId: user.id };
 
     return res.status(201).json(postReturn);
   } catch (error) {
-    console.log(error);
-
     return res.status(500).json({ message: 'Algo deu errado' });
   }
 };
