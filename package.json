@@ -19,8 +19,7 @@
     "test": "jest --runInBand",
     "test-coverage": "jest --runInBand --coverage",
     "debug": "nodemon index.js",
-    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json .",
-    "agily": "npm run drop && npm run prestart && npm run seed"
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
   },
   "devDependencies": {
     "eslint": "6.8.0",
